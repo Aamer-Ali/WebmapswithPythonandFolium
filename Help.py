@@ -8,3 +8,5 @@ print(mapsData.columns)
 name = list(mapsData['NAME'])
 for nm in name:
     print(type(nm))
+
+print(help(folium.CircleMarker))
