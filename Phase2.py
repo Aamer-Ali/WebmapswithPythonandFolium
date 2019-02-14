@@ -12,12 +12,12 @@ elevation = list(mapsData['ELEV'])  # Creating popup with ELEV column
 placeName = list(mapsData['NAME'])  # Creating tooltip with NAME column
 
 # Creating Map and Feature Group
-map = folium.Map(location=[19.877, 75.336], zoom_start=6, tiles="Mapbox Bright")
+map = folium.Map(location=[38.55, -99.09], zoom_start=6, tiles="Mapbox Bright")
 featureGroup = folium.FeatureGroup(name="My Map FGroup")
 
 # Adding Child to FG in For Loop using ZIP function
 for lat, lon, elev, name in zip(latitude, longitude, elevation, placeName):
-    featureGroup.add_child(folium.Marker(location=[lat, lon], popup=str(elev), tooltip=name,
+    featureGroup.add_child(folium.Marker(location=[lat, lon], popup=str(elev) + " m", tooltip=name,
                                          icon=folium.Icon(color='green')))
 
 # Adding Feature Group to Map and Saving
