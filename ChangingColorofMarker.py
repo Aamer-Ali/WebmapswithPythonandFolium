@@ -13,7 +13,7 @@ placeName = list(mapsData['NAME'])  # Creating tooltip with NAME column
 def changeMarkerColor(elevation):
     if elevation < 1000:
         return 'green'
-    elif 1000 <= elevation < 30000:
+    elif 1000 <= elevation < 3000:
         return 'orange'
     elif 3000 < elevation:
         return 'red'
