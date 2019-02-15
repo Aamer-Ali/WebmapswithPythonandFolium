@@ -31,14 +31,14 @@ for lat, lon, elev, name in zip(latitude, longitude, elevation, placeName):
         folium.CircleMarker(location=[lat, lon], radius=6, popup=str(elev) + " m", tooltip=name,
                             fill_color=changeMarkerColor(elev), color='gray', fill_opacity=0.7))
 
-# Feature Group for making layer onthe bases of population
+# Feature Group for making layer on the bases of population
 featureGroup_Population = folium.FeatureGroup(name="Population")
 featureGroup_Population.add_child(folium.GeoJson(data=open('world.json', 'r', encoding='utf-8-sig').read(),
                                                  style_function=lambda x: {
                                                      'fillColor': 'green' if x['properties']['POP2005'] < 10000000
                                                      else 'orange' if 10000000 <= x['properties'][
                                                          'POP2005'] < 20000000 else 'red'}))
-
+# Feature Group for making layer on the bases of region
 featureGroup_RegionBase = folium.FeatureGroup(name="Region")
 featureGroup_RegionBase.add_child(folium.GeoJson(data=open('world.json', 'r', encoding='utf-8-sig').read(),
                                                  style_function=lambda x: {
