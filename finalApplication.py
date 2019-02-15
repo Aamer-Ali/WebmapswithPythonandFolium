@@ -27,19 +27,30 @@ featureGroup_Volcanoes = folium.FeatureGroup(name="Volcanoes")
 # Feature group for making markers on the bases of different data
 # Adding Child to FG in For Loop using ZIP function
 for lat, lon, elev, name in zip(latitude, longitude, elevation, placeName):
-    featureGroup_Volcanoes.add_child(folium.CircleMarker(location=[lat, lon], radius=6, popup=str(elev) + " m", tooltip=name,
-                                                         fill_color=changeMarkerColor(elev), color='gray', fill_opacity=0.7))
+    featureGroup_Volcanoes.add_child(
+        folium.CircleMarker(location=[lat, lon], radius=6, popup=str(elev) + " m", tooltip=name,
+                            fill_color=changeMarkerColor(elev), color='gray', fill_opacity=0.7))
 
 # Feature Group for making layer onthe bases of population
 featureGroup_Population = folium.FeatureGroup(name="Population")
-featureGroup_Population.add_child(folium.GeoJson(data=open('world.json', 'r', encoding='utf-8-sig').read()
-                                      , style_function=lambda x: {
-        'fillColor': 'green' if x['properties']['POP2005'] < 10000000
-        else 'orange' if 10000000 <= x['properties']['POP2005'] < 20000000 else 'red'}))
+featureGroup_Population.add_child(folium.GeoJson(data=open('world.json', 'r', encoding='utf-8-sig').read(),
+                                                 style_function=lambda x: {
+                                                     'fillColor': 'green' if x['properties']['POP2005'] < 10000000
+                                                     else 'orange' if 10000000 <= x['properties'][
+                                                         'POP2005'] < 20000000 else 'red'}))
+
+featureGroup_RegionBase = folium.FeatureGroup(name="Region")
+featureGroup_RegionBase.add_child(folium.GeoJson(data=open('world.json', 'r', encoding='utf-8-sig').read(),
+                                                 style_function=lambda x: {
+                                                     'fillColor': 'blue' if x['properties']['REGION'] < 50
+                                                     else 'red' if 50 <= x['properties']['REGION'] < 100
+                                                     else 'yellow'
+                                                 }))
 
 # Adding Feature Group to Map and Saving
 map.add_child(featureGroup_Volcanoes)
 map.add_child(featureGroup_Population)
+map.add_child(featureGroup_RegionBase)
 map.add_child(folium.LayerControl())
 # The above line of code going to give full control on the layers which we added to our map. We can setvisible or make our added layer invisible.
 map.save("myMAP1.html")
